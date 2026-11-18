@@ -15,3 +15,7 @@ Diary and profile save locally. Repository code is public; diary data and API ke
 
 ## Attribution
 Barcode nutrition: Open Food Facts, ODbL, https://world.openfoodfacts.org. Scanner: ZXing JS 0.21.3, Apache-2.0. Fonts: Google Fonts DM Sans and Manrope.
+
+
+## Indian restaurant foods (v1.4.0)
+20 curated common dishes found at US Indian restaurants, including butter chicken, chicken tikka masala, chicken 65, tandoori chicken, chicken tikka, chicken biryani, lamb rogan josh, chicken vindaloo, saag paneer, paneer tikka masala, chana masala, dal makhani, dal tadka, aloo gobi, vegetable samosa, naan, garlic naan, cheese naan, restaurant basmati rice, and mango lassi. This is not a statistically ranked top-20 list. Values are editable generic recipe estimates, not verified restaurant labels. Existing diary entries are unchanged.
