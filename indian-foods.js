@@ -265,6 +265,6 @@ const indianRestaurantFoods=[
 function withIndianRestaurants(existing){
  const aliases={'Palak paneer':'Saag paneer'};
  const seen=new Set();
- const result=existing.map(f=>{const match=indianRestaurantFoods.find(x=>x.name===(aliases[f.name]||f.name));if(!match)return f;seen.add(match.name);return {...match,id:f.id,category:f.category};});
+ const result=existing.map(f=>{const match=indianRestaurantFoods.find(x=>x.name===(aliases[f.name]||f.name));if(!match)return f;seen.add(match.name);return {...f,...match,id:f.id,category:f.category,bn:f.bn||match.bn};});
  return [...result,...indianRestaurantFoods.filter(f=>!seen.has(f.name))];
 }
