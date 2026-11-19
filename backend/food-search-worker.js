@@ -17,13 +17,14 @@ export default {
     if (request.method === 'OPTIONS') return new Response(null,{status:204,headers});
     if (request.method !== 'GET') return reply({error:'Use GET.'},405);
     if (url.pathname !== '/' && url.pathname !== '/search') return reply({error:'Not found.'},404);
-    if (!url.searchParams.has('q')) return reply({service:'Plate food search',ready:true});
+    if (!url.searchParams.has('q')) return reply({service:'Plate food search',version:'1.6.2-diagnostics',ready:true});
     const q = url.searchParams.get('q').trim().replace(/\s+/g,' ');
     if (q.length < 2 || q.length > 100) return reply({error:'Enter between 2 and 100 characters.'},400);
     const cacheKey = new Request(url.origin+'/search?q='+encodeURIComponent(q.toLowerCase()));
     const cache = caches.default;
     const cached = await cache.match(cacheKey);
     if (cached) return new Response(cached.body,{status:200,headers});
+    let stage='request';
     try {
       // Fixed destination: this cannot be used to proxy arbitrary websites.
       const upstream = new URL('https://search.openfoodfacts.org/search');
@@ -34,8 +35,10 @@ export default {
         signal:AbortSignal.timeout(20000),redirect:'manual'
       });
       if (!response.ok) return reply({error:response.status===429?'Food database is busy. Please wait a minute.':'Food database is temporarily unavailable. Try again later.'},response.status===429?429:502);
+      stage='decode-response';
       const data = await response.json();
       if (!Array.isArray(data.hits)) return reply({error:'Food database returned an unexpected response.'},502);
+      stage='prepare-results';
       const products = data.hits.slice(0,24).map(p=>({
         code:String(p.code||''),
         product_name:typeof p.product_name==='string'?p.product_name:(typeof p.product_name_en==='string'?p.product_name_en:''),
@@ -49,7 +52,7 @@ export default {
       ctx.waitUntil(cache.put(cacheKey,saved).catch(()=>{}));
       return reply(body);
     } catch(error) {
-      return reply({error:error.name==='TimeoutError'?'Food search timed out. Please retry.':'Unable to reach the food database. Please retry later.'},502);
+      return reply({error:'Food search failed.',version:'1.6.2-diagnostics',stage,detail:String(error?.message||error).slice(0,240)},502);
     }
   }
 };
