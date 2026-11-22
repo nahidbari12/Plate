@@ -11,6 +11,7 @@ function barcodeNutrition(product) {
     suffix='_100g';unit='100 g / 100 mL database reference — check label';
     note='PER 100 REFERENCE, NOT PER SERVING OR WHOLE PACKAGE. The database lacks complete labeled-serving values. Check whether its reference is 100 g or 100 mL and replace the serving description and ALL nutrition fields with your package values before logging a labeled serving.';
   } else return null;
-  return {name:product.product_name||'Scanned food',unit,cal:Number(n['energy-kcal'+suffix]),p:Number(n['proteins'+suffix]),c:Number(n['carbohydrates'+suffix]),f:Number(n['fat'+suffix]),source:'Open Food Facts · '+note,barcodeBasis:suffix==='_serving'?'serving':'100-reference'};
+  return {micros:micronutrientsFromOFF(n,suffix),name:product.product_name||'Scanned food',unit,cal:Number(n['energy-kcal'+suffix]),p:Number(n['proteins'+suffix]),c:Number(n['carbohydrates'+suffix]),f:Number(n['fat'+suffix]),source:'Open Food Facts · '+note,barcodeBasis:suffix==='_serving'?'serving':'100-reference'};
 }
 if(typeof module!=='undefined')module.exports={barcodeNutrition};
+
