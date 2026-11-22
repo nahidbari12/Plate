@@ -28,4 +28,12 @@ function openBodyFat(){
  $('#bfUnit').onchange=e=>{const next=e.target.value;for(const k of ['heightCm','neckCm','waistCm','hipCm']){const input=form.elements[k];if(input.value!=='')input.value=Number((Number(input.value)*(next==='cm'?2.54:1/2.54)).toFixed(2))}unit=next;update()};form.oninput=update;form.onchange=e=>{if(e.target.id!=='bfUnit')update()};
  form.onsubmit=e=>{e.preventDefault();update();if(!pending||!$('#bfAdult').checked)return;const before=db.bodyFat;db.bodyFat=pending;if(!save()){if(before===undefined)delete db.bodyFat;else db.bodyFat=before;return}close();render();toast('Body-fat estimate saved')};update();
 }
-function bindBodyFat(){if($('#bodyFatOpen'))$('#bodyFatOpen').onclick=openBodyFat;if($('#bodyFatDelete'))$('#bodyFatDelete').onclick=()=>{if(!confirm('Delete your saved body-fat estimate?'))return;const before=db.bodyFat;delete db.bodyFat;if(!save()){db.bodyFat=before;return}render();toast('Body-fat estimate deleted')}}
+function deleteBodyFatEstimate(){if(!confirm('Delete your saved body-fat estimate?'))return;const before=db.bodyFat;delete db.bodyFat;if(!save()){db.bodyFat=before;return}render();toast('Body-fat estimate deleted')}
+// Delegation remains active when the journey is re-rendered, including older cached render code.
+function bindBodyFat(){}
+document.addEventListener('click',event=>{
+ const button=event.target.closest?.('#bodyFatOpen, #bodyFatDelete');
+ if(!button)return;
+ event.preventDefault();
+ if(button.id==='bodyFatOpen')openBodyFat();else deleteBodyFatEstimate();
+});
