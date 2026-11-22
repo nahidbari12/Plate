@@ -1,1 +1,1 @@
-{"private":true,"scripts":{"test":"node family-recipes.cjs"},"devDependencies":{"linkedom":"0.18.12"}}
+{"private":true,"scripts":{"test":"node family-recipes.cjs && node hydration.cjs"},"devDependencies":{"linkedom":"0.18.12"}}

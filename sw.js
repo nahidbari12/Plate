@@ -1,8 +1,8 @@
 const PREFIX='plate-pages-shell-';
-const CACHE=PREFIX+'v1.10.0';
+const CACHE=PREFIX+'v1.11.0';
 const BASE=self.registration.scope;
 const local=name=>new URL(name,BASE).href;
-const SHELL=['./','index.html','style.css','app.js','family-recipes.js','bodyfat.js','coach.js','scanner-controls.js','everyday-foods.js','daily-nutrients.js','nutrition.js','us-foods.js','med-foods.js','indian-foods.js','profile-dates.js','journey.js','zxing.min.js','manifest.json','privacy.html','icon.png','icon-512.png'].map(name=>local((name.endsWith('.js')||name==='style.css')?name+'?v=1.10.0':name));
+const SHELL=['./','index.html','style.css','app.js','hydration.js','family-recipes.js','bodyfat.js','coach.js','scanner-controls.js','everyday-foods.js','daily-nutrients.js','nutrition.js','us-foods.js','med-foods.js','indian-foods.js','profile-dates.js','journey.js','zxing.min.js','manifest.json','privacy.html','icon.png','icon-512.png'].map(name=>local((name.endsWith('.js')||name==='style.css')?name+'?v=1.11.0':name));
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(SHELL)));self.skipWaiting()});
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith(PREFIX)&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
 self.addEventListener('fetch',e=>{
@@ -21,6 +21,7 @@ self.addEventListener('fetch',e=>{
   }
  })());
 });
+
 
 
 
