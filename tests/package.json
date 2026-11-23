@@ -1,1 +1,9 @@
-{"private":true,"scripts":{"test":"node family-recipes.cjs && node hydration.cjs && node ramadan.cjs && node caffeine.cjs"},"devDependencies":{"linkedom":"0.18.12"}}
+{
+  "private": true,
+  "scripts": {
+    "test": "node family-recipes.cjs && node hydration.cjs && node ramadan.cjs && node caffeine.cjs && node swipe-navigation.cjs"
+  },
+  "devDependencies": {
+    "linkedom": "0.18.12"
+  }
+}
