@@ -1,5 +1,5 @@
 const PREFIX='plate-pages-shell-';
-const CACHE=PREFIX+'v1.14.1';
+const CACHE=PREFIX+'v1.14.2';
 const BASE=self.registration.scope;
 const local=name=>new URL(name,BASE).href;
 const SHELL=['./','index.html','style.css','app.js','drink-catalog.js','drink-builder.js','swipe-navigation.js','ramadan.js','hydration.js','family-recipes.js','bodyfat.js','coach.js','scanner-controls.js','everyday-foods.js','daily-nutrients.js','nutrition.js','us-foods.js','med-foods.js','indian-foods.js','profile-dates.js','journey.js','zxing.min.js','manifest.json','privacy.html','icon.png','icon-512.png'].map(name=>local((name.endsWith('.js')||name==='style.css')?name+'?v=1.13.2':name));

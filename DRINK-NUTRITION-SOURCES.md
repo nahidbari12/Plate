@@ -41,3 +41,9 @@ Checked: November 23, 2026. US menus. This is an offline snapshot, not a live co
 - Published source labels indicate origin, not a guarantee of accuracy. Customized amounts are calculated; actual preparation and label rounding vary.
 - Adding a drink still requires the existing review-and-confirm form. Users can choose the meal, adjust nutrition/servings, and save the completed drink to My foods.
 - No account, API key, profile or diary data is sent to a restaurant. Catalog selections/calculations run locally.
+
+## Typed amounts
+
+Amount fields accept decimal numbers from 0 to 100. Zero omits that add-in. Exact published amount selections take priority, including Tim Hortons half portions. Other quantities are scaled from a known one-unit value when available and are marked as estimates. An unpublished one-unit value still requires label entry for the selected amount; it is never assumed zero. Starbucks milk amounts are relative to a regular 1/2-inch splash: 0.5 light, 1 regular, 1.5 extra. Home fields name the measured tablespoon/teaspoon/packet unit. Dunkin standard portions are not necessarily pumps, and whole-recipe matches apply only to standard quantities.
+
+Homemade stays first and selected initially; shops below it are alphabetized.
