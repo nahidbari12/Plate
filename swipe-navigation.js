@@ -9,7 +9,7 @@ function initSwipeNavigation(){
  const markDirty=e=>{const f=e.target?.closest?.('form');if(f)dirtyForms.add(f)};
  view.addEventListener('input',markDirty,true);view.addEventListener('change',markDirty,true);view.addEventListener('reset',e=>dirtyForms.delete(e.target),true);
  view.addEventListener('touchstart',e=>{
-  gesture=null;if(e.touches.length!==1||blocked(e.target))return;const t=e.touches[0],width=viewportWidth();
+  lastSwipe=0;gesture=null;if(e.touches.length!==1||blocked(e.target))return;const t=e.touches[0],width=viewportWidth();
   // Reserve screen edges for the browser and Android back gestures.
   if(t.clientX<24||t.clientX>width-24)return;
   for(let n=e.target;n&&n!==view;n=n.parentElement)if(n.clientWidth>0&&n.scrollWidth>n.clientWidth+4)return;

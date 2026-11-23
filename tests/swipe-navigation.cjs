@@ -21,6 +21,8 @@ run('navigate("history")');const weight=document.querySelector('[name="weight"]'
 run('navigate("today")');for(let i=1;i<screens.length;i++){swipe();assert.equal(run('tab'),screens[i])}for(let i=screens.length-2;i>=0;i--){swipe(180);assert.equal(run('tab'),screens[i])}
 const before=animations;window.matchMedia=()=>({matches:true});swipe();assert.equal(animations,before);assert.equal(run('tab'),screens[1]);
 const click=new window.Event('click',{bubbles:true,cancelable:true});click.detail=1;view.dispatchEvent(click);assert(click.defaultPrevented);const keyboardClick=new window.Event('click',{bubbles:true,cancelable:true});keyboardClick.detail=0;view.dispatchEvent(keyboardClick);assert(!keyboardClick.defaultPrevented);
+// A fresh touch after swiping is intentional, and must not be swallowed.
+const freshButton=document.createElement('button');view.appendChild(freshButton);let freshTaps=0;freshButton.onclick=()=>freshTaps++;touch('touchstart',[[200,100]],freshButton);touch('touchend',[[200,100]],freshButton);const freshClick=new window.Event('click',{bubbles:true,cancelable:true});freshClick.detail=1;freshButton.dispatchEvent(freshClick);assert(!freshClick.defaultPrevented);assert.equal(freshTaps,1);
 // Existing menu taps continue to navigate normally.
 document.querySelector('nav button[data-tab="today"]').click();assert.equal(run('tab'),'today');
 console.log('PASS: left/right menu-order swipes, no wrapping, vertical/diagonal/jitter and edge guards, multi-touch/cancel, dialog/form/chart protection, dirty-form guard, reduced motion, click suppression, menu buttons and top-of-page navigation.');
